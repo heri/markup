@@ -35,19 +35,19 @@ class TestMarkup < Test::Unit::TestCase
     assert_equal Product.final_cost(base_price: 1_299.99), Product.final_cost(base_price: 1_299.99, workers: 0, category: 'other')
   end
 
-  def test_round_cents
-    # a test to make round cents pass
-
-    # a test to make round cents fail
-  end
-
   def test_edge_cases
     # base price should be positive
     assert_raises ArgumentError do
       Product.final_cost(base_price: -21, workers: 3, category: 'food')
     end
     assert_raises ArgumentError do
+      Product.final_cost(base_price: :max, workers: 3, category: 'food')
+    end
+    assert_raises ArgumentError do
       Product.final_cost(base_price: 0, workers: 3, category: 'food')
+    end
+    assert_raises ArgumentError do
+      Product.final_cost(base_price: 0, workers: 'ten of them', category: 'food')
     end
     # number of workers in product should be positive
     assert_raises ArgumentError do
