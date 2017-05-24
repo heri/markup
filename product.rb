@@ -8,9 +8,9 @@ class Product
 
   def self.final_cost(base_price: 0.0, workers: 0, category: '')
     # validate arguments
-    raise(ArgumentError, 'Strictly positive price required') unless base_price.is_a?(Numeric) && base_price > 0
-    raise(ArgumentError, 'Finite positive number for workers') unless workers.is_a?(Integer) && workers >= 0 
-    raise(ArgumentError, 'Category are strings') unless category.is_a?(String)
+    raise(ArgumentError, 'Argument base_price is not strictly positive') unless base_price.is_a?(Numeric) && base_price > 0
+    raise(ArgumentError, 'Argument workers is not a positive number integer') unless workers.is_a?(Integer) && workers >= 0 
+    raise(ArgumentError, 'Argument category is not a string') unless category.is_a?(String)
 
     cost = add_markup(base_price, FLAT_MARKUP)
 

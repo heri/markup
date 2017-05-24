@@ -1,7 +1,7 @@
 
 # WHAT
 
-Install [`ruby 2.2.3`](https://rvm.io/rvm/install)
+Install [`ruby 2.2.3`](https://rvm.io/rvm/install) or more recent
 
 Get code:
 ```
@@ -10,7 +10,7 @@ git clone https://github.com/heri/markup.git
 
 Install gems:
 ```
-bundle install
+cd markup && bundle install
 ```
 
 # RUN
@@ -23,19 +23,21 @@ Loaded suite product_test
 Started
 .......
 
-Finished in 0.001374 seconds.
+Finished in 0.001809 seconds.
 -----------------------------------------------------------------------------------------------------------------
-7 tests, 10 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+7 tests, 15 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
 100% passed
 -----------------------------------------------------------------------------------------------------------------
-5094.61 tests/s, 7278.02 assertions/s
+3869.54 tests/s, 8291.87 assertions/s
 
 ```
 
-Benchmark
+To have an idea of performance, launch `irb` console then:
 
 ```
-10_000.times.sum { Benchmark.ms { Product.final_cost(base_price: 12, workers: 0, category: 'books') } } 
+require 'benchmark'
+require_relative 'product'
+Benchmark.bm {|x| x.report { 1_000_000.times do; Product.final_cost(base_price: 12, workers: 3, category: 'books'); end; } }
 ```
 
 # INFO

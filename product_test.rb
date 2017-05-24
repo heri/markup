@@ -36,18 +36,20 @@ class TestMarkup < Test::Unit::TestCase
   end
 
   def test_edge_cases
-    # base price should be positive
+    # base price should be strictly positive
     assert_raises ArgumentError do
       Product.final_cost(base_price: -21, workers: 3, category: 'food')
     end
     assert_raises ArgumentError do
-      Product.final_cost(base_price: :max, workers: 3, category: 'food')
-    end
-    assert_raises ArgumentError do
       Product.final_cost(base_price: 0, workers: 3, category: 'food')
     end
+    # base price should be a number, not a symbol or othher
     assert_raises ArgumentError do
-      Product.final_cost(base_price: 0, workers: 'ten of them', category: 'food')
+      Product.final_cost(base_price: :max, workers: 3, category: 'food')
+    end
+    # number of workers should be a number, not a string or other
+    assert_raises ArgumentError do
+      Product.final_cost(base_price: 10, workers: 'ten of them', category: 'food')
     end
     # number of workers in product should be positive
     assert_raises ArgumentError do
@@ -56,7 +58,7 @@ class TestMarkup < Test::Unit::TestCase
     assert_raises ArgumentError do
       Product.final_cost(base_price: 1_299.99, workers: 1.2, category: 'food')
     end
-    # category should be a string
+    # category should be a string, not a number or other
     assert_raises ArgumentError do
       Product.final_cost(base_price: 1_299.99, workers: 3, category: 1)
     end
