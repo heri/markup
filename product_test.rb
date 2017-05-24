@@ -31,7 +31,8 @@ class TestMarkup < Test::Unit::TestCase
   end
 
   def test_no_category
-    # other categories is a 0% markup
+    # non-existing category is same as giving no category
+    assert_equal Product.final_cost(base_price: 1_299.99), Product.final_cost(base_price: 1_299.99, workers: 0, category: 'other')
   end
 
   def test_round_cents
