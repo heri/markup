@@ -14,6 +14,11 @@ class TestMarkup < Test::Unit::TestCase
     assert_equal 1_392.29, Product.final_cost(base_price: 1_299.99, workers: 0, category: 'electronics')
   end
 
+  def test_synonyms
+    # pharmaceuticals is same as drugs and should give same result
+    assert_equal 6_199.81, Product.final_cost(base_price: 5_432.00, workers: 1, category: 'pharmaceuticals')
+  end
+
   def test_only_flat
     # this assumes no workers and no category
     # it should only apply the 5% flat markup
