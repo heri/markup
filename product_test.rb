@@ -26,7 +26,8 @@ class TestMarkup < Test::Unit::TestCase
   end
 
   def test_no_worker
-    # no workers should add a 0% markup
+    # There is  a 1.2% difference between 1 and 0 worker
+    assert_equal 101.2, Product.final_cost(base_price: 100, workers: 1) * 100 / Product.final_cost(base_price: 100, workers: 0)
   end
 
   def test_no_category
